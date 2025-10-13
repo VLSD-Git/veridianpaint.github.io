@@ -82,3 +82,22 @@ img{max-width:100%;height:auto;display:block}
 .footer-brand img{width:46px}
 .copyright{padding:14px 0;text-align:center;opacity:.7;border-top:1px solid rgba(169,176,184,.12);margin-top:18px}
 @media (max-width:900px){.footer-grid{grid-template-columns:1fr}}
+
+/* === Artwork Integration (Hero & Slab) === */
+.hero{ position: relative; overflow: hidden; }
+.hero::before{
+  content:""; position:absolute; inset:0;
+  background:
+    linear-gradient(135deg, rgba(26,26,26,.75), rgba(58,78,70,.55)),
+    url("../images/hero-veridian.jpg") center/cover no-repeat;
+  z-index:0; filter: saturate(1.05) contrast(1.02);
+}
+.hero > .container{ position: relative; z-index: 1; }
+
+.slab{
+  background:
+    linear-gradient(145deg, rgba(27,28,30,.35), rgba(42,45,47,.35)),
+    url("../images/slab-about.jpg") center/cover no-repeat;
+  border:1px solid rgba(169,176,184,.18);
+  box-shadow: inset 0 0 40px rgba(0,0,0,.35);
+}
