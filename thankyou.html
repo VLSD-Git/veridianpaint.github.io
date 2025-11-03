@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thank You — Veridian Paint Co.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="images/favicon.ico" sizes="any">
+  <meta name="theme-color" content="#3A4E46">
+  <style>
+    /* Fade-in animation */
+    .fade-in {opacity:0; transform:translateY(12px); animation:fadeInUp 1s ease forwards;}
+    @keyframes fadeInUp {
+      to {opacity:1; transform:none;}
+    }
+
+    /* Confetti */
+    canvas.confetti {
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:9999;
+    }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner fade-in">
+    <a class="brand" href="index.html">
+      <img src="images/veridian_logo_primary.png" alt="Veridian Paint Co. logo">
+      <span>Veridian Paint Co.</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <canvas class="confetti"></canvas>
+  <section class="page-hero small fade-in" style="animation-delay:.2s">
+    <div class="container">
+      <h1>Thank You</h1>
+      <p>Your message has been sent successfully.</p>
+    </div>
+  </section>
+
+  <section class="container prose fade-in" style="text-align:center;padding:60px 0 100px;animation-delay:.4s">
+    <p>We appreciate you reaching out to Veridian Paint Co. — expect a reply within one business day.</p>
+    <a class="btn" href="index.html">Return Home</a>
+  </section>
+</main>
+
+<footer class="site-footer fade-in" style="animation-delay:.6s">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <img src="images/veridian_logo_primary.png" alt="">
+      <div>
+        <strong>Veridian Paint Co.</strong><br>
+        Modern Methods. Timeless Results.
+      </div>
+    </div>
+    <div class="footer-contact">
+      <div><strong>Contact</strong></div>
+      <div>(732) 491-9773</div>
+      <div><a href="mailto:Vincenzo@veridianpaint.com">Vincenzo@veridianpaint.com</a></div>
+      <div>Bridgewater, NJ</div>
+    </div>
+    <div class="footer-cta">
+      <a class="btn btn-outline" href="contact.html">Send Another Message</a>
+    </div>
+  </div>
+  <div class="copyright">&copy; 2025 Veridian Paint Co. All rights reserved.</div>
+</footer>
+
+<script>
+/* Gentle confetti burst */
+(function(){
+  const canvas = document.querySelector('.confetti');
+  const ctx = canvas.getContext('2d');
+  let pieces = [];
+  const colors = ['#3A4E46','#A9B0B8','#E1E3E6','#6B7C75'];
+  let w,h,frame;
+  function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;}
+  window.addEventListener('resize',resize);resize();
+  for(let i=0;i<120;i++){
+    pieces.push({x:Math.random()*w,y:Math.random()*-h*0.5,size:6+Math.random()*6,
+                 color:colors[Math.floor(Math.random()*colors.length)],
+                 speedY:2+Math.random()*3,angle:Math.random()*2*Math.PI,spin:0.02+Math.random()*0.03});
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    pieces.forEach(p=>{
+      p.y+=p.speedY;p.angle+=p.spin;
+      ctx.save();
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.angle);
+      ctx.fillStyle=p.color;
+      ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);
+      ctx.restore();
+    });
+    frame=requestAnimationFrame(draw);
+  }
+  draw();
+  setTimeout(()=>{cancelAnimationFrame(frame);ctx.clearRect(0,0,w,h);},1500);
+})();
+</script>
+</body>
+</html>
