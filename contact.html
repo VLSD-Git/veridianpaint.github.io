@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Contact — Veridian Paint Co.</title>
-  <meta name="description" content="Request an estimate or consultation. Expect a prompt, professional response within 24 hours.">
+  <meta name="description" content="Request an estimate or consultation from Veridian Paint Co. Expect a prompt, professional response within 24 hours.">
 
   <meta property="og:title" content="Contact — Veridian Paint Co.">
   <meta property="og:description" content="Share your project details and receive a tailored estimate from Veridian Paint Co.">
@@ -24,7 +24,6 @@
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "0884a9d2d6554bdd82280218997d2176"}'></script>
 </head>
-
 <body>
 <header class="site-header">
   <div class="container header-inner">
@@ -68,7 +67,8 @@
 
       <h3>What to Expect</h3>
       <p>
-        Every estimate begins with a conversation — in person or virtual — to understand your surfaces, timeline, and goals.
+        Every estimate begins with a conversation — in person or virtual — to understand your
+        surfaces, timeline, and goals.
       </p>
       <ul>
         <li>Clear scope and transparent pricing</li>
@@ -80,38 +80,89 @@
     </div>
 
     <!-- CONTACT FORM -->
-    <form class="contact-form"
-          action="https://veridian-contact.derobertisv223.workers.dev/submit"
-          method="POST">
-
-      <!-- REQUIRED FOR YOUR WORKER -->
+    <form
+      class="contact-form"
+      action="https://veridian-contact.derobertisv223.workers.dev/submit"
+      method="POST"
+    >
+      <!-- Required for your Cloudflare Worker -->
       <input type="hidden" name="_subject" value="New message from VeridianPaint.com">
       <input type="hidden" name="_redirect" value="https://veridianpaint.com/thankyou.html">
 
-      <!-- Honeypot bot trap -->
+      <!-- Honeypot bot trap (keep this) -->
       <input type="text" name="company" style="display:none;">
 
       <h3>Your Project Details</h3>
 
       <label>
         Name
-        <input type="text" name="name" required autocomplete="name"
-               placeholder="Your full name">
+        <input type="text" name="name" required autocomplete="name" placeholder="Your full name">
       </label>
 
       <label>
         Email
-        <input type="email" name="email" required autocomplete="email"
-               placeholder="you@example.com">
+        <input type="email" name="email" required autocomplete="email" placeholder="you@example.com">
       </label>
 
       <label>
         Phone (optional)
-        <input type="tel" name="phone" autocomplete="tel"
-               placeholder="(###) ###-####">
+        <input type="tel" name="phone" autocomplete="tel" placeholder="(###) ###-####">
       </label>
 
       <label>
         Project Details
-        <textarea name="message" rows="6" requir
+        <textarea
+          name="message"
+          rows="6"
+          required
+          placeholder="Tell us about your rooms, trim, cabinets, repairs, timeline, and goals."
+        ></textarea>
+      </label>
 
+      <button class="btn" type="submit">Send Message</button>
+
+      <p class="form-note">
+        Your information is used only to respond to your inquiry. We never share or sell your data.
+      </p>
+    </form>
+
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="container band-inner">
+      <div>
+        <h2>Prefer to talk it through?</h2>
+        <p>Call or text and we’ll walk through your project together.</p>
+      </div>
+      <a class="btn btn-ghost" href="tel:+17324919773">Call Veridian Paint Co.</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <img src="images/veridian_logo_primary.png" alt="">
+      <div>
+        <strong>Veridian Paint Co.</strong><br>
+        Modern Methods. Timeless Results.
+      </div>
+    </div>
+
+    <div class="footer-contact">
+      <div><strong>Contact</strong></div>
+      <div>(732) 491-9773</div>
+      <div><a href="mailto:Vincenzo@veridianpaint.com">Vincenzo@veridianpaint.com</a></div>
+      <div>Bridgewater, NJ</div>
+    </div>
+
+    <div class="footer-cta">
+      <a class="btn btn-outline" href="contact.html">Request a Quote</a>
+    </div>
+  </div>
+
+  <div class="copyright">© 2025 Veridian Paint Co.</div>
+</footer>
+</body>
+</html>
