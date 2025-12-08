@@ -1,51 +1,78 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Thank You — Veridian Paint Co.</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<link rel="icon" href="images/favicon.ico" sizes="any">
-<meta name="theme-color" content="#3A4E46">
-<style>
-  .fade-in{opacity:0;transform:translateY(12px);animation:fadeInUp 1s ease forwards;}
-  @keyframes fadeInUp{to{opacity:1;transform:none}}
-  canvas.confetti{position:fixed;inset:0;pointer-events:none;z-index:9999}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Cloudflare Web Analytics -->
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js"
-        data-cf-beacon='{"token": "0884a9d2d6554bdd82280218997d2176"}'></script>
-<!-- End Cloudflare Web Analytics -->
+  <title>Thank You — Veridian Paint Co.</title>
+  <meta name="description" content="Thank you for contacting Veridian Paint Co. We’ve received your project details and will follow up shortly.">
 
+  <meta property="og:title" content="Thank You — Veridian Paint Co.">
+  <meta property="og:description" content="Your message has been received by Veridian Paint Co. Expect a prompt, professional response.">
+  <meta property="og:image" content="images/veridian_logo_primary.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="icon" href="images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" href="images/favicon-192.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#3A4E46">
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "0884a9d2d6554bdd82280218997d2176"}'></script>
 </head>
+
 <body>
 <header class="site-header">
-  <div class="container header-inner fade-in">
+  <div class="container header-inner">
     <a class="brand" href="index.html">
       <img src="images/veridian_logo_primary.png" alt="Veridian Paint Co. logo">
       <span>Veridian Paint Co.</span>
     </a>
+
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <label for="nav-toggle" class="hamburger">&#9776;</label>
+
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </div>
 </header>
 
+<!-- Confetti canvas -->
+<canvas id="confetti-canvas"></canvas>
+
 <main>
-  <canvas class="confetti"></canvas>
-  <section class="page-hero small fade-in" style="animation-delay:.2s">
+  <section class="page-hero small">
     <div class="container">
-      <h1>Thank You</h1>
-      <p>Your message has been sent successfully.</p>
+      <h1>Thank You.</h1>
+      <p>We’ve received your project details and will follow up within one business day.</p>
     </div>
   </section>
 
-  <section class="container prose fade-in" style="text-align:center;padding:60px 0 100px;animation-delay:.4s">
-    <p>We appreciate you reaching out to Veridian Paint Co. — expect a reply within one business day.</p>
-    <a class="btn" href="index.html">Return Home</a>
+  <section class="container prose" style="text-align:center; padding-bottom:80px;">
+    <p>
+      You’ll hear from Veridian Paint Co. soon to confirm your project, discuss scope,
+      and schedule a walkthrough if needed.
+    </p>
+    <p>
+      In the meantime, feel free to explore our services or return to the homepage.
+    </p>
+
+    <div class="cta-row" style="margin-top:24px; justify-content:center;">
+      <a class="btn" href="index.html">Back to Home</a>
+      <a class="btn btn-ghost" href="services.html">View Services</a>
+    </div>
   </section>
 </main>
 
-<footer class="site-footer fade-in" style="animation-delay:.6s">
+<footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">
       <img src="images/veridian_logo_primary.png" alt="">
@@ -54,76 +81,87 @@
         Modern Methods. Timeless Results.
       </div>
     </div>
+
     <div class="footer-contact">
       <div><strong>Contact</strong></div>
       <div>(732) 491-9773</div>
       <div><a href="mailto:Vincenzo@veridianpaint.com">Vincenzo@veridianpaint.com</a></div>
       <div>Bridgewater, NJ</div>
     </div>
+
     <div class="footer-cta">
-      <a class="btn btn-outline" href="contact.html">Send Another Message</a>
+      <a class="btn btn-outline" href="contact.html">Request Another Quote</a>
     </div>
   </div>
-  <div class="copyright">&copy; 2025 Veridian Paint Co. All rights reserved.</div>
+
+  <div class="copyright">© 2025 Veridian Paint Co.</div>
 </footer>
 
 <script>
-/* Metallic-viridian confetti + soft chime */
-(function(){
-  const canvas=document.querySelector('.confetti');
-  const ctx=canvas.getContext('2d');
-  let pieces=[];
-  const colors=['#3A4E46','#A9B0B8','#5F676E','#E1E3E6','#6C7C74'];
-  let w,h,frame;
-  function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;}
-  window.addEventListener('resize',resize);resize();
+  (function() {
+    const canvas = document.getElementById('confetti-canvas');
+    if (!canvas) return;
 
-  for(let i=0;i<180;i++){
-    pieces.push({
-      x:Math.random()*w,
-      y:Math.random()*-h*0.5,
-      size:4+Math.random()*6,
-      color:colors[Math.floor(Math.random()*colors.length)],
-      speedY:1+Math.random()*2.5,
-      spin:(Math.random()*0.04+0.02)*(Math.random()<0.5?-1:1),
-      angle:Math.random()*Math.PI*2
-    });
-  }
+    const ctx = canvas.getContext('2d');
+    let W, H;
 
-  function draw(){
-    ctx.clearRect(0,0,w,h);
-    pieces.forEach(p=>{
-      p.y+=p.speedY;
-      p.angle+=p.spin;
-      ctx.save();
-      ctx.translate(p.x,p.y);
-      ctx.rotate(p.angle);
-      ctx.fillStyle=p.color;
-      ctx.globalAlpha=0.85;
-      ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);
-      ctx.restore();
-      if(p.y>h+20){p.y=-10; p.x=Math.random()*w;}
-    });
-    frame=requestAnimationFrame(draw);
-  }
-  draw();
-  setTimeout(()=>{cancelAnimationFrame(frame);ctx.clearRect(0,0,w,h);},4500);
+    function resizeCanvas() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
-  // gentle chime (Web Audio API)
-  try{
-    const ctxAudio=new (window.AudioContext||window.webkitAudioContext)();
-    const osc=ctxAudio.createOscillator();
-    const gain=ctxAudio.createGain();
-    osc.type='sine';
-    osc.frequency.setValueAtTime(880,ctxAudio.currentTime);
-    gain.gain.setValueAtTime(0.15,ctxAudio.currentTime);
-    osc.connect(gain).connect(ctxAudio.destination);
-    osc.start();
-    osc.frequency.exponentialRampToValueAtTime(440,ctxAudio.currentTime+1.2);
-    gain.gain.exponentialRampToValueAtTime(0.0001,ctxAudio.currentTime+1.4);
-    osc.stop(ctxAudio.currentTime+1.5);
-  }catch(e){}
-})();
-</script>
-</body>
-</html>
+    const confettiCount = 220;
+    const confetti = [];
+    const colors = [
+      '#f97316', // orange
+      '#22c55e', // green
+      '#38bdf8', // blue
+      '#e5e7eb', // light
+      '#a855f7'  // violet
+    ];
+
+    function randomRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function initConfetti() {
+      for (let i = 0; i < confettiCount; i++) {
+        confetti.push({
+          x: randomRange(0, W),
+          y: randomRange(-H, 0),
+          r: randomRange(4, 8),
+          d: Math.random() * confettiCount,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          tilt: randomRange(-10, 10),
+          tiltAngleIncrement: randomRange(0.03, 0.08),
+          tiltAngle: Math.random() * Math.PI
+        });
+      }
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, W, H);
+      confetti.forEach(p => {
+        ctx.beginPath();
+        ctx.lineWidth = p.r;
+        ctx.strokeStyle = p.color;
+        const x = p.x + p.tilt;
+        ctx.moveTo(x + p.r, p.y);
+        ctx.lineTo(x, p.y + p.r * 2);
+        ctx.stroke();
+      });
+      updateConfetti();
+    }
+
+    let animationFrameId;
+    let endTime = Date.now() + 9000; // confetti runs ~9 seconds
+
+    function updateConfetti() {
+      const now = Date.now();
+      for (let i = 0; i < confetti.length; i++) {
+        const p = confetti[i];
+        p.tiltAngle += p.tiltAngleIncrement;
+        p.y += (Math.cos(p.d) + 3 + p.r / 2) * 0.6;
+        p.x += Math.sin(p.d) * 0.6;
